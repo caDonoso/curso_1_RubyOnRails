@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blog</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render "partials/navigation"%>
+
+  
+    <% flash.each do |name, msg|%>
+      <% if name == "notice" %>
+        <div class="alert alert-success">
+          <%= msg %>
+        </div>
+      <% elsif name == "alert" %>
+        <div class="alert alert-danger">
+          <%= msg %>
+        </div>
+      <% else %>
+        <div class="alert alert-<%= name%>">
+          <%= msg %>
+        </div>
+      <% end %>
+      
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>
