@@ -1,5 +1,7 @@
-<% if user_signed_in? %>
-	<h1>Bienvenido <%= current_user.email %> </h1>
-<% else %>
-	<h1>Bienvenido al blog de los cerros de Santiago </h1>
-<% end %>
+<div class="center-xs">
+	<% if user_signed_in? %>
+		<h2>Bienvenido <%= current_user.email %> </h2>
+	<% else %>
+		<h2>Bienvenido al blog de los cerros de Santiago </h2>
+	<% end %>
+</div>

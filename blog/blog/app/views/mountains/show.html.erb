@@ -1,3 +1,18 @@
-<h1> <%= @mountain.name %> </h1>
-<p> Descripcion: <%= @mountain.description %> </p>
-<p> Alitud: <%= @mountain.altitude %></p>
+<div class="center-xs">
+	<h1> <%= @mountain.name %> </h1>
+	<p> Descripcion: <%= @mountain.description %> </p>
+	<p> Alitud: <%= @mountain.altitude %></p>
+</div>
+	<%= render "comments/form"%>
+
+	<div >
+		<ul>
+			<% @mountain.comments.each do |comment| %>
+			<li>
+				<%= comment.body %> - <%= comment.user.email %>
+			</li>
+			<%end%>
+		</ul>
+	</div>
+
+

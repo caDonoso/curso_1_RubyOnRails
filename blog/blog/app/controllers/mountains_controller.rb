@@ -25,6 +25,7 @@ class MountainsController < ApplicationController
 	#GET /mountains/1
 	def show
 		@mountain.update_visits_count
+		@comment = Comment.new
 	end
 
 	#GET /mountains/new

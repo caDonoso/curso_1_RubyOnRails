@@ -10,13 +10,10 @@
 	width: 400px;
 }
 
-#inputDescriptionMountain{
-	width: 600px;
-	height: 100px;
-}
-
 #cardContainer{
 	margin: 20px;
+	width: 400px;
+	height: 450px;
 }
 
 .text-left{
@@ -25,4 +22,33 @@
 
 #button_signUp{
 	margin-top: 10px;
+}
+
+#text-areaNotResize{
+	margin-bottom: 10px;
+	resize: none;
+	width: 600px;
+	height: auto;
+
+}
+
+.carousel-inner{
+  width:100%;
+  max-height: 400px !important;
+}
+
+#carouselOfMountains{
+	margin: 30px;
+}
+
+#buttonSendCommentary{
+	background-color: #FF7281;
+}
+
+#buttonBack{
+	background-color: #DEB358;
+}
+
+#containerCommentForm{
+	background-color: #BBB6F5;
 }

@@ -1,5 +1,6 @@
 class Mountain < ApplicationRecord
 	belongs_to :user
+	has_many :comments
 	validates :name, presence: true, uniqueness: true
 	validates :description, presence: true, length: {minimum: 20}
 	validates :altitude, presence: true
