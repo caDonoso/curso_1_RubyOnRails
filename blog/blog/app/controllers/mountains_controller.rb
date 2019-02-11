@@ -17,6 +17,19 @@ class MountainsController < ApplicationController
 	# @mountain = Mountain.find(params[:id]), esto para hacer Refactor y eliminar codigo repetido.
 	before_action :set_mountain, except: [:index, :new, :create]
 
+	#####################################################################################
+	# El usuario normal solo puede ver las montañas agregadas por los editores y admin. #
+	#####################################################################################
+
+	#Aca van los callbacks que verifican que el usuario pueda realizar las acciones correspondientes
+	# tales como eliminar, crear, editar, ver, etc.
+
+	# El editor además de ver las montañas, podrá crear editar o crear una.
+	before_action :authenticate_editor!, only: [:new, :create, :update]
+
+	# El admin tendrá tambien las funciones del editor, pero especificamente puede destruir también.
+	before_action :authenticate_admin!, only: [:destroy]
+
 	#GET /mountains
 	def index
 		@mountains = Mountain.all
@@ -32,12 +45,14 @@ class MountainsController < ApplicationController
 	def new
 		# no esta en la base de datos aun
 		@mountain = Mountain.new
+		@categories = Category.all
 	end
 
 	#POST /mountains
 	def create
 		#INSERT INTO
 		@mountain = current_user.mountains.new(mountain_params)
+		@mountain.categories = params[:categories]
 		if @mountain.save
 			redirect_to "/", success: "Cerro agregado con éxito."
 		else
@@ -47,12 +62,12 @@ class MountainsController < ApplicationController
 
 	def destroy
 		#DELETE FROM mountains
-		
+				
 		@mountainName = @mountain.name
 		if @mountain.destroy
-			redirect_to "/mountains", success: "Cerro '#{@mountainName}'' eliminado con éxito."
+			redirect_to mountains_path, success: "Cerro '#{@mountainName}'' eliminado con éxito."
 		else
-			redirect_to "/mountains", danger: "No se pudo eliminar el Cerro '#{@mountainName}'."
+			redirect_to mountains_path, danger: "No se pudo eliminar el Cerro '#{@mountainName}'."
 		end
 	end
 
@@ -80,6 +95,6 @@ class MountainsController < ApplicationController
 
 	#STRONG PARAMS
 	def mountain_params
-		params.require(:mountain).permit(:name,:description,:altitude)
+		params.require(:mountain).permit(:name,:description,:altitude, :cover, :categories)
 	end
 end

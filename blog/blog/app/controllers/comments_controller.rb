@@ -3,6 +3,12 @@ class CommentsController < ApplicationController
   before_action :set_mountain
   before_action :authenticate_user!
 
+  # El editor además de ver los comentarios, podrá crear editar o crear uno.
+  before_action :authenticate_editor!, only: [:create, :update]
+
+  # El admin tendrá tambien las funciones del editor, pero especificamente puede destruir también.
+  before_action :authenticate_admin!, only: [:destroy]
+
 
   # POST /comments
   # POST /comments.json
@@ -13,7 +19,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         format.html { redirect_to @comment.mountain, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
+        format.json { render :show, status: :created, location: @comment.mountain }
       else
         format.html { render :new }
         format.json { render json: @comment.errors, status: :unprocessable_entity }

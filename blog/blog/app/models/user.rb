@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :mountains
   has_many :comments
+  include PermissionsConcern
 end

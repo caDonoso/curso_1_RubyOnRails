@@ -1,29 +1,26 @@
-<div>
-  <%= form_with(model: [@mountain, @comment], local: true) do |form| %>
-    <% if @comment.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
-        <ul>
-        <% @comment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
+<%= form_with(model: [@mountain, @comment], remote: true, html: {id: "comments-form"}) do |form| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+      <ul>
+      <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>﻿
+
+  <div class="card", id="containerCommentForm">
+    <div class="card-body">
+      <h5 class="card-title">Comentar</h5>
+      <div class="field">
+        <%= form.text_area :body, class:"form-control", id:"text-areaNotResize", placeholder:"Ingresa un comentario" %>
       </div>
-    <% end %>﻿
 
-    <div class="card", id="containerCommentForm">
-      <div class="card-body">
-        <h5 class="card-title">Comentar</h5>
-        <div class="field">
-          <%= form.text_area :body, class:"form-control", id:"text-areaNotResize", placeholder:"Ingresa un comentario" %>
-        </div>
-
-        <div class="actions">
-          <%= form.submit :Enviar, class:"btn btn-primary", id:"buttonSendCommentary"%>
-          <%= link_to "Volver", "/mountains", class:"btn btn-primary", id:"buttonBack"%>
-        </div>
+      <div class="actions">
+        <%= form.submit :Enviar, class:"btn btn-primary", id:"buttonSendCommentary"%>
+        <%= link_to "Volver", "/mountains", class:"btn btn-primary", id:"buttonBack"%>
       </div>
     </div>
-  <% end %>
-</div>
-
+  </div>
+<% end %>

@@ -1,3 +1,7 @@
+.navbar{
+	background-color: #969395;
+}
+
 #MountainsForm{
 	margin: 20px;
 }
@@ -42,13 +46,22 @@
 }
 
 #buttonSendCommentary{
-	background-color: #FF7281;
+	background-color: #A1FF70;
+	color: black;
 }
 
 #buttonBack{
-	background-color: #DEB358;
+	background-color: #EDC774;
+	color: black;
 }
 
 #containerCommentForm{
-	background-color: #BBB6F5;
+	background-color: #7757E8;
+	width: 700px;
+	margin-left: 20px;
+}
+
+.btn{
+	margin-left: 5px;
+	margin-right: 5px;
 }
