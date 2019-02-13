@@ -1,0 +1,47 @@
+<div class="row">
+	<% @mountains.each do |mountain| %>
+		<div class="col-xs-12
+                col-sm-8
+                col-md-6
+                col-lg-4">
+			<div class="card" id="cardContainer">
+
+			  <div class="card-header">
+			    <%= mountain.name %> 
+			  </div>
+
+			  <div class="card-body">
+			    <blockquote class="blockquote mb-0">
+			    	
+			        <p> Descripcion: <%= mountain.description %> </p>
+
+
+			        <% unless mountain.user.nil? %>
+			      	  <p> Escrito por: <%= mountain.user.email %> </p>
+			        <% end %>
+
+			        <p><%= mountain.visits_count %> usuarios han visualizado este cerro.</p>
+
+			        <footer class="blockquote-footer"> 
+			      		<p> Altitud: <%= mountain.altitude %></p>
+			        </footer>
+
+			        <%= link_to "Borrar", mountain, class:"btn btn-danger", method: :delete %>
+			        <%= link_to "Editar", edit_mountain_path(mountain), class:"btn btn-warning"%>
+			        <%= link_to "Ver más", mountain_path(mountain), class:"btn btn-info"%>
+			        
+			        <% if mountain.may_publish? %>
+				       <%= link_to "Publicar", "/mountains/#{mountain.id}/publish", 
+				       class:"btn btn-dark", method: :put%>
+
+				    <% else %>
+				       <%= link_to "Retirar publicacion", "/mountains/#{mountain.id}/unpublish", 
+				       class:"btn btn-dark", method: :put%>
+				    <%end%>
+
+			    </blockquote>
+			  </div>
+			</div>
+		</div>
+	<% end %>
+</div>	

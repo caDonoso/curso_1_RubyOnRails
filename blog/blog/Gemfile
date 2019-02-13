@@ -31,7 +31,21 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'jquery-turbolinks'
 
+
+#Esta gema permite subir archivos al sistema
 gem 'paperclip'
+
+#Esta gema permite instalar el controlador de estados
+gem 'aasm'
+
+#Estas gemas son para llenar la base de datos con masivos elementos
+gem 'faker'
+gem 'populator'
+
+#Permite navegar entre paginas para mostrar por ejemplo 3 elementos por pagina.
+gem 'will_paginate'
+
+#gem 'epic-editor-rails'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

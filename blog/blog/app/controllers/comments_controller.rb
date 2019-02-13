@@ -3,8 +3,10 @@ class CommentsController < ApplicationController
   before_action :set_mountain
   before_action :authenticate_user!
 
-  # El editor además de ver los comentarios, podrá crear editar o crear uno.
-  before_action :authenticate_editor!, only: [:create, :update]
+  
+
+  # El editor además de ver y crear comentarios, podrá editar uno.
+  before_action :authenticate_editor!, only: [:update]
 
   # El admin tendrá tambien las funciones del editor, pero especificamente puede destruir también.
   before_action :authenticate_admin!, only: [:destroy]

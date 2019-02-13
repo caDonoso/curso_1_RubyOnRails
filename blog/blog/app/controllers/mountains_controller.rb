@@ -11,10 +11,11 @@ class MountainsController < ApplicationController
 	#
 
 
-	before_action :authenticate_user!, except: [:show, :index]
+	before_action :authenticate_user!, except: [:index]
 
 	# set_mountain lo que hace es que antes de cualquier accion, hace:
 	# @mountain = Mountain.find(params[:id]), esto para hacer Refactor y eliminar codigo repetido.
+	# No se añade el parametro 'publish' para que dicha accion tenga el id de la montaña a publicar.
 	before_action :set_mountain, except: [:index, :new, :create]
 
 	#####################################################################################
@@ -24,15 +25,18 @@ class MountainsController < ApplicationController
 	#Aca van los callbacks que verifican que el usuario pueda realizar las acciones correspondientes
 	# tales como eliminar, crear, editar, ver, etc.
 
-	# El editor además de ver las montañas, podrá crear editar o crear una.
-	before_action :authenticate_editor!, only: [:new, :create, :update]
+	# El editor además de ver las montañas, podrá crear o editar una.
+	before_action :authenticate_editor!, only: [:new, :create, :update, :edit]
 
 	# El admin tendrá tambien las funciones del editor, pero especificamente puede destruir también.
-	before_action :authenticate_admin!, only: [:destroy]
+	before_action :authenticate_admin!, only: [:destroy, :publish, :unpublish]
 
 	#GET /mountains
 	def index
-		@mountains = Mountain.all
+		#Se utiliza el scope 'publicados' del modelo Mountain
+		# para enadenar se puede utilizar 'Mountain.publicados.ultimos'
+		@mountains = Mountain.paginate(page: params[:page], per_page: 3).publicados
+
 	end
 
 	#GET /mountains/1
@@ -84,6 +88,19 @@ class MountainsController < ApplicationController
 
 	def edit
 		
+	end
+
+	def publish
+		if @mountain.publish!
+			redirect_to "/mountains", success: "Cerro publicado con éxito."
+		end
+		
+	end
+
+	def unpublish
+		if @mountain.unpublish!
+			redirect_to "/mountains", success: "Cerro mandado a borradores con éxito."
+		end
 	end
 
 	private

@@ -1,4 +1,6 @@
 class Mountain < ApplicationRecord
+	include AASM
+
 	belongs_to :user
 	has_many :comments, dependent: :destroy
 	has_many :has_categories, dependent: :destroy
@@ -30,6 +32,28 @@ class Mountain < ApplicationRecord
 		self.update(visits_count: self.visits_count + 1)
 	end
 
+	scope :publicados, -> {where(state: "published")}
+
+	scope :borradores, -> {where(state: "in_draft")}
+
+	scope :ultimos, -> {order("created_at DESC").limit(10)}
+
+	aasm column:"state" do
+
+		#Toda montaña que sea crea se inicializa con draft (borrador)
+		state :in_draft, initial: true
+		state :published
+
+
+		# Eventos que sirven para que se puedan cambiar estados
+		event :publish do
+			transitions from: :in_draft, to: :published
+		end
+
+		event :unpublish do
+			transitions from: :published, to: :in_draft
+		end
+	end
 
 	private
 
