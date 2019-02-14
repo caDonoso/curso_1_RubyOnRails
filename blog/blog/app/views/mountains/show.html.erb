@@ -1,21 +1,46 @@
-<div class="center-xs">
-	<h1> <%= @mountain.name %> </h1>
-	<p> Descripcion: <%= @mountain.description %> </p>
-	<p> Alitud: <%= @mountain.altitude %></p>
-	<div class="field">
-		<%= image_tag @mountain.cover.url(:thumb)%>
-	</div>
+<div class="row center-xs ">
+	<div class="col-xs-12 ligth-border col-md-7">
+		<h1> <%= @mountain.name %> </h1>
 
-	<% @mountain.categories.each do |category|%>
-		#<%= category.name %>
-	<% end %>
+		<div class="text-justify">
+			<%= Sanitize.fragment(@mountain.description, Sanitize::Config::RELAXED).html_safe %>
+		</div>
+			
+		<p> Alitud: <%= @mountain.altitude %> m.s.n.m</p>
+		<div class="field">
+			<%= image_tag @mountain.cover.url(:thumb)%>
+		</div>
+
+		<% @mountain.categories.each do |category|%>
+			#<%= category.name %>
+		<% end %>
+	</div>	
 </div>
-	<%= render "comments/form"%>
 
-	<ul id="comments-box">
-		<% @mountain.comments.each do |comment| %>
-		<li>
-			<%= comment.body %> - <%= comment.user.email %>
-		</li>
-		<%end%>
-	</ul>
+<%= render "comments/form"%>
+
+<% @mountain.comments.each do |comment| %>
+	<div class="row">
+		<div class="col-xs-1 col-md-1">
+			<div class="box">
+				<%= image_tag(comment.user.avatar)%>
+			</div>
+		</div>
+				
+		<div class="col-xs-11 col-md-10">
+			<div class="box">
+				<% if comment.user.permission_level === 1 %>
+					 <%= comment.body %>
+
+				<% elsif comment.user.permission_level === 2%>
+					<%= comment.body %> - EDITOR
+
+				<% elsif comment.user.permission_level === 3%>
+					<%= comment.body %> - _ADMIN_
+
+				<% end %>
+				
+			</div>
+		</div>
+	</div>
+<%end%>

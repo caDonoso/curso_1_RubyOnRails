@@ -14,7 +14,7 @@
 			    <blockquote class="blockquote mb-0">
 			    	
 			      <p id="tituloTexto"> Descripcion: </p>
-			      <p id="contenidoTexto"> <%= mountain.description %> </p>
+			      <p id="contenidoTexto"> <%= sanitize truncate(mountain.description.html_safe, length:30) %> </p>
 
 
 			      <% unless mountain.user.nil? %>
@@ -29,14 +29,18 @@
 			      	<p> Altitud: <%= mountain.altitude %> m.s.n.m</p>
 			      </footer>
 			      <% if user_signed_in? && current_user.is_editor? %>
-			      	<%= link_to "Editar", edit_mountain_path(mountain), class:"btn btn-warning"%>
+			      	<div class="btn-group">
+			      		<%= link_to "Editar", edit_mountain_path(mountain), class:"btn btn-warning"%>
+			      	</div>
 			      <% end %>
-			      <%= link_to "Ver más", mountain_path(mountain), class:"btn btn-info"%>
+			      <div class="btn-group">
+			      	<%= link_to "Ver más", mountain_path(mountain), class:"btn btn-info"%>
+			      </div>
 			    </blockquote>
 			  </div>
 			</div>
 		</div>
 	<% end %>
 
-	<%= will_paginate @mountain %>
+	<%= will_paginate @mountains %>
 </div>	

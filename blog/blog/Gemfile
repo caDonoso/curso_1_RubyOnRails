@@ -32,6 +32,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-turbolinks'
 
 
+
+
 #Esta gema permite subir archivos al sistema
 gem 'paperclip'
 
@@ -44,6 +46,12 @@ gem 'populator'
 
 #Permite navegar entre paginas para mostrar por ejemplo 3 elementos por pagina.
 gem 'will_paginate'
+
+
+gem 'sanitize'
+
+gem 'trix'
+
 
 #gem 'epic-editor-rails'
 
@@ -61,6 +69,9 @@ gem 'bootstrap'
 gem 'jquery-rails'
 
 group :development, :test do
+  #Gema para correos en modo test
+  gem 'letter_opener'
+  
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end

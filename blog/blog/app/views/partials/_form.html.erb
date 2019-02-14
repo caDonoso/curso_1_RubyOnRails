@@ -1,5 +1,5 @@
 <div id="MountainsForm">
-  <%= form_for(@mountain) do |m| %>
+  <%= form_for(@mountain, html: {id: "mountain_form"}) do |m| %>
   <% @mountain.errors.full_messages.each do |message| %>
     <div class="alert alert-danger" role="alert">
       * <%= message%>
@@ -16,8 +16,11 @@
     </div>
 
     <div class="form-group">
-      <label for="inputDescriptionMountain">Descripcion del cerro</label>
-      <%= m.text_area :description, class:"form-control", id:"text-areaNotResize", rows:"3", 
+      <label for="inputDescriptionMountain">Contenido del cerro</label>
+      <trix-editor input="text-areaNotResize"></trix-editor>
+      <%= m.hidden_field :description, class:"form-control", id:"text-areaNotResize", rows:"3", 
+      placeholder:"Ingresa la descripcion del cerro" %>
+      <%= m.hidden_field :markup_body, class:"form-control", id:"markup-body-textarea", rows:"3", 
       placeholder:"Ingresa la descripcion del cerro" %>
     </div>
 
@@ -40,3 +43,15 @@
     <%= link_to "Volver", "/mountains", class:"btn btn-primary", id:"buttonBack"%>
   <%end%>
 </div>
+
+<script>
+  $("#mountain_form").on("submit", function(){
+    var element = document.querySelector("trix-editor")
+    var document = element.editor.getDocument("#text-areaNotResize");
+    //element.editor  --> is a Trix.Editor instance
+    var text = document.toString();
+    
+    element.editor.setSelectedRange([0, 0]);
+    element.editor.insertString("#");
+  });
+</script>

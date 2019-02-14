@@ -22,6 +22,9 @@ class Mountain < ApplicationRecord
 	before_save :set_visits_count
 	after_create :save_categories
 
+	#Luego de crear un cerro, se envía un correo
+	after_create :send_mail
+
 	#Custom setter ya que el metodo termina con un '='
 	def categories=(value)
 		@categories = value
@@ -57,9 +60,18 @@ class Mountain < ApplicationRecord
 
 	private
 
+	def send_mail
+		#El modelo MountainMailer se ubica en /app/mailers/mountain_mailer.rb
+		#El método delivery_later ejecuta código asincrono, ahora bien como no está configurado
+		# para trabajar de forma asíncrona, trabaja de forma in-line.
+		MountainMailer.new_mountain(self).deliver_later
+	end
+
 	def save_categories
-		@categories.each do |category_id|
-			HasCategory.create(category_id: category_id, mountain_id: self.id)
+		unless @categories.nil?
+			@categories.each do |category_id|
+				HasCategory.create(category_id: category_id, mountain_id: self.id)
+			end
 		end
 	end
 

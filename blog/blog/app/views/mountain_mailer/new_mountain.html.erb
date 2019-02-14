@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<h1> <%= @mountain.name %> </h1>
+		<p> <%= truncate(@mountain.description, length: 30) %> </p>
+
+		<% link_to "Leer más", mountain_url(@mountain) %>
+	</body>
+</html>

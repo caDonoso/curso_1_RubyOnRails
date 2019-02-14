@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_11_224154) do
+ActiveRecord::Schema.define(version: 2019_02_13_213749) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2019_02_11_224154) do
     t.bigint "cover_file_size"
     t.datetime "cover_updated_at"
     t.string "state", default: "in_draft"
+    t.text "markup_body"
     t.index ["user_id"], name: "index_mountains_on_user_id"
   end
 
